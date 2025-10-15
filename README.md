@@ -1,1 +1,27 @@
-# agile_testing
+Mall Management
+
+ORG ID: 2b6cf347-2988-4cf4-a7b5-7cf8d2c4d0ae
+STORE ID: e23e3b4e-6fee-4bf3-9dff-2086faac0347
+
+JWT: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIiLCJvcmdhbml6YXRpb25JZCI6IjJiNmNmMzQ3LTI5ODgtNGNmNC1hN2I1LTdjZjhkMmM0ZDBhZSIsInJvbGUiOiJ1c2VyIiwiaXNSb290IjpmYWxzZSwiaWF0IjoxNzYwNTQyNTU2LCJleHAiOjE3NjExNDczNTYsImF1ZCI6InZlbmRpbmctZnJvbnRlbmQiLCJpc3MiOiJ2ZW5kaW5nLWJhY2tlbmQiLCJzdWIiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIifQ.PA3EUZwt56NvIa58cMk7iCgwjCpqNp1ddTvZqDUOWaY
+Username: test@vendistax.com
+
+
+sudo npm i -g newman
+
+newman run vendistax.postman_collection.json -e local.postman_environment.json \
+  --folder "Organizations" \
+  --env-var orgId=2b6cf347-2988-4cf4-a7b5-7cf8d2c4d0ae \
+  --env-var e23e3b4e-6fee-4bf3-9dff-2086faac0347 \
+  --env-var baseUrl=http://localhost:3000/api/v1 \
+  --env-var apiKey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIiLCJvcmdhbml6YXRpb25JZCI6IjJiNmNmMzQ3LTI5ODgtNGNmNC1hN2I1LTdjZjhkMmM0ZDBhZSIsInJvbGUiOiJ1c2VyIiwiaXNSb290IjpmYWxzZSwiaWF0IjoxNzYwNTQyNTU2LCJleHAiOjE3NjExNDczNTYsImF1ZCI6InZlbmRpbmctZnJvbnRlbmQiLCJpc3MiOiJ2ZW5kaW5nLWJhY2tlbmQiLCJzdWIiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIifQ.PA3EUZwt56NvIa58cMk7iCgwjCpqNp1ddTvZqDUOWaY
+  
+
+  --env-var orgId=2b6cf347-2988-4cf4-a7b5-7cf8d2c4d0ae
+
+
+jq -r '.item[].name' vendistax.postman_collection.json
+
+
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIiLCJvcmdhbml6YXRpb25JZCI6IjJiNmNmMzQ3LTI5ODgtNGNmNC1hN2I1LTdjZjhkMmM0ZDBhZSIsInJvbGUiOiJ1c2VyIiwiaXNSb290IjpmYWxzZSwiaWF0IjoxNzYwNTQyNTU2LCJleHAiOjE3NjExNDczNTYsImF1ZCI6InZlbmRpbmctZnJvbnRlbmQiLCJpc3MiOiJ2ZW5kaW5nLWJhY2tlbmQiLCJzdWIiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIifQ.PA3EUZwt56NvIa58cMk7iCgwjCpqNp1ddTvZqDUOWaY" http://localhost:3000/api/v1/organizations
+
