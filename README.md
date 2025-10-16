@@ -1,3 +1,5 @@
+REquires `npm i -g newman`
+
 Mall Management
 
 ORG ID: 2b6cf347-2988-4cf4-a7b5-7cf8d2c4d0ae

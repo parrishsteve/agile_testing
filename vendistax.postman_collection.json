@@ -1138,6 +1138,15 @@
                 "type": "text"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Automated Tests\",\n  \"description\": \"API STORE TEST DONT DELETE\",\n  \"address\": {\n    \"street1\": \"2745 Sunset Blvd\",\n    \"city\": \"Woodland Hills\",\n    \"state\": \"CA\",\n    \"country\": \"USA\",\n    \"postalCode\": \"91367\"\n  },\n  \"contact\": {\n    \"email\": \"maintenance@athenos-medical.co\",\n    \"phone\": \"+12135575555\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/stores/{{storeId}}",
               "host": [
@@ -1278,7 +1287,7 @@
             "description": "Create a new machine",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"storeId\": \"store-123456789\",\n  \"name\": \"VM-002 Cafeteria\",\n  \"model\": \"VendMax Pro 2000\",\n  \"serialNumber\": \"VM2000-2024-002\",\n  \"location\": {\n    \"description\": \"Main cafeteria, near coffee station\",\n    \"floor\": 2,\n    \"indoor\": true\n  },\n  \"metadata\": {\n    \"installationDate\": \"2025-01-15\",\n    \"warranty\": \"2 years\",\n    \"technician\": \"John Smith\"\n  },\n  \"images\": []\n}",
+              "raw": "{\n  \"storeId\": \"{{storeId}}\",\n  \"name\": \"API TEST VM-002 Cafeteria\",\n  \"model\": \"VendMax Pro 2000\",\n  \"serialNumber\": \"VM2000-2024-002\",\n  \"location\": {\n    \"description\": \"Main cafeteria, near coffee station\",\n    \"floor\": 2,\n    \"indoor\": true\n  },\n  \"metadata\": {\n    \"installationDate\": \"2025-01-15\",\n    \"warranty\": \"2 years\",\n    \"technician\": \"John Smith\"\n  },\n  \"images\": []\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1293,7 +1302,6 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
               }
@@ -1370,7 +1378,7 @@
             "description": "Update machine by ID",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"storeId\": \"store-123456789\",\n  \"name\": \"VM-001 Main Entrance Updated\",\n  \"model\": \"VendMax Pro 2000\",\n  \"serialNumber\": \"VM2000-2024-001\",\n  \"location\": {\n    \"description\": \"Moved to near elevator bank\",\n    \"floor\": 1,\n    \"indoor\": true\n  },\n  \"metadata\": {\n    \"installationDate\": \"2024-01-15\",\n    \"warranty\": \"2 years\",\n    \"lastMaintenance\": \"2025-01-15\"\n  },\n  \"images\": []\n}",
+              "raw": "{\n  \"storeId\": \"{{storeId}}\",\n  \"name\": \"API TEST DONT DELETE\",\n  \"model\": \"VendMax Pro 2000\",\n  \"serialNumber\": \"VM2000-2024-001\",\n  \"location\": {\n    \"description\": \"Moved to near elevator bank\",\n    \"floor\": 1,\n    \"indoor\": true\n  },\n  \"metadata\": {\n    \"installationDate\": \"2024-01-15\",\n    \"warranty\": \"2 years\",\n    \"lastMaintenance\": \"2025-01-15\"\n  },\n  \"images\": []\n}",
               "options": {
                 "raw": {
                   "language": "json"

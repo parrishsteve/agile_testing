@@ -13,9 +13,9 @@
 
 import axios, { AxiosRequestHeaders } from "axios";
 
-const BASE = process.env.BASE_URL || "http://localhost:3000";
-const API_KEY = process.env.API_KEY || "";
-const JWT = process.env.JWT || "";
+const BASE = process.env.BASE_URL || "http://localhost:3000/api/v1";
+const API_KEY = process.env.API_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIiLCJvcmdhbml6YXRpb25JZCI6IjJiNmNmMzQ3LTI5ODgtNGNmNC1hN2I1LTdjZjhkMmM0ZDBhZSIsInJvbGUiOiJ1c2VyIiwiaXNSb290IjpmYWxzZSwiaWF0IjoxNzYwNTQyNTU2LCJleHAiOjE3NjExNDczNTYsImF1ZCI6InZlbmRpbmctZnJvbnRlbmQiLCJpc3MiOiJ2ZW5kaW5nLWJhY2tlbmQiLCJzdWIiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIifQ.PA3EUZwt56NvIa58cMk7iCgwjCpqNp1ddTvZqDUOWaY";
+const JWT = process.env.JWT || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIiLCJvcmdhbml6YXRpb25JZCI6IjJiNmNmMzQ3LTI5ODgtNGNmNC1hN2I1LTdjZjhkMmM0ZDBhZSIsInJvbGUiOiJ1c2VyIiwiaXNSb290IjpmYWxzZSwiaWF0IjoxNzYwNTQyNTU2LCJleHAiOjE3NjExNDczNTYsImF1ZCI6InZlbmRpbmctZnJvbnRlbmQiLCJpc3MiOiJ2ZW5kaW5nLWJhY2tlbmQiLCJzdWIiOiI1Nzc1NTNjNS1hYmU2LTQ1M2UtODFlNi0yNjE0NDkwOTFmNmIifQ.PA3EUZwt56NvIa58cMk7iCgwjCpqNp1ddTvZqDUOWaY";
 
 if (!API_KEY) {
   // eslint-disable-next-line no-console
@@ -25,7 +25,6 @@ if (!API_KEY) {
 function authHeaders(): AxiosRequestHeaders {
   const h: AxiosRequestHeaders = {
     "Authorization": `Bearer ${API_KEY}`,
-    "x-api-key": API_KEY,
     "Content-Type": "application/json"
   };
   if (JWT) {
