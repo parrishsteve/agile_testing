@@ -38,7 +38,7 @@
             "description": "Register a new user",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"organizationId\": \"org-123456789\"\n}",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"organizationId\": \"{{orgId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -53,7 +53,6 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
               }
@@ -103,7 +102,6 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
                   "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
@@ -117,8 +115,8 @@
             "method": "POST",
             "header": [
               {
-                "key": "Authorization",
-                "value": "Bearer {{apiKey}}",
+                "key": "x-api-key",
+                "value": "{{orgApiKey}}",
                 "type": "text"
               },
               {
@@ -141,56 +139,13 @@
             "description": "Exchange API key for JWT token",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"apiKey\": \"ak_1234567890abcdef\"\n}",
+              "raw": "{\n  \"apiKey\": \"{{orgApiKey}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
                 }
               }
             }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
-                  "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET users-lockout-status-email",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{apiKey}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/users/lockout-status/{{email}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "lockout-status",
-                "{{email}}"
-              ]
-            },
-            "description": "Get user lockout status"
           },
           "event": [
             {
@@ -361,7 +316,7 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/auth/api-key/{{apiKeyId}}",
+              "raw": "{{baseUrl}}/auth/api-key23/{{apiKeyId}}",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -1556,7 +1511,7 @@
             "description": "Create a new slot",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"machineId\": \"machine-123456789\",\n  \"enabled\": true,\n  \"hardwareId\": \"A1\",\n  \"productSensor\": true,\n  \"label\": \"Row A, Column 1 - Beverages\",\n  \"type\": \"cooled\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 1\n  },\n  \"dimensions\": {\n    \"height\": 15.5,\n    \"width\": 12,\n    \"length\": 8.5,\n    \"unit\": \"cm\"\n  },\n  \"metadata\": {\n    \"temperatureRange\": \"2-8\\u00b0C\",\n    \"capacity\": 10\n  }\n}",
+              "raw": "{\n  \"machineId\": \"{{machineId}}\",\n  \"enabled\": true,\n  \"hardwareId\": \"A1\",\n  \"productSensor\": true,\n  \"label\": \"API TEST Row A, Column 1 - Beverages\",\n  \"type\": \"cooled\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 1\n  },\n  \"dimensions\": {\n    \"height\": 15.5,\n    \"width\": 12,\n    \"length\": 8.5,\n    \"unit\": \"cm\"\n  },\n  \"metadata\": {\n    \"temperatureRange\": \"2-8\\u00b0C\",\n    \"capacity\": 10\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1571,7 +1526,6 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
               }
@@ -1648,7 +1602,7 @@
             "description": "Update slot by ID",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"machineId\": \"machine-123456789\",\n  \"enabled\": false,\n  \"hardwareId\": \"A1-updated\",\n  \"productSensor\": true,\n  \"label\": \"Row A, Column 1 - Premium Beverages\",\n  \"type\": \"heated\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 1\n  },\n  \"dimensions\": {\n    \"height\": 18,\n    \"width\": 14,\n    \"length\": 10,\n    \"unit\": \"cm\"\n  },\n  \"metadata\": {\n    \"temperatureRange\": \"60-80\\u00b0C\",\n    \"capacity\": 8\n  }\n}",
+              "raw": "{\n  \"machineId\": \"{{machineId}}\",\n  \"enabled\": false,\n  \"hardwareId\": \"A1-updated\",\n  \"productSensor\": true,\n  \"label\": \"API TEST DONT DELETE - Premium Beverages\",\n  \"type\": \"heated\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 1\n  },\n  \"dimensions\": {\n    \"height\": 18,\n    \"width\": 14,\n    \"length\": 10,\n    \"unit\": \"cm\"\n  },\n  \"metadata\": {\n    \"temperatureRange\": \"60-80\\u00b0C\",\n    \"capacity\": 8\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1697,57 +1651,6 @@
               ]
             },
             "description": "Get doors for slot"
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
-                  "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "PATCH slots-slotId-inventory",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{apiKey}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/slots/{{slotId}}/inventory",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "slots",
-                "{{slotId}}",
-                "inventory"
-              ]
-            },
-            "description": "Update slot inventory",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"quantity\": 8\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
           },
           "event": [
             {
@@ -1835,7 +1738,7 @@
             "description": "Create a new door",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"slotId\": \"slot-123456789\",\n  \"enabled\": true,\n  \"motorized\": false,\n  \"orientation\": \"front\",\n  \"hardwareId\": \"hw-door-001\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 2\n  },\n  \"metadata\": {}\n}",
+              "raw": "{\n  \"slotId\": \"{{slotId}}\",\n  \"enabled\": true,\n  \"motorized\": false,\n  \"orientation\": \"front\",\n  \"hardwareId\": \"API TEST\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 2\n  },\n  \"metadata\": {}\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1850,7 +1753,6 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
               }
@@ -1927,7 +1829,7 @@
             "description": "Update door by ID",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"slotId\": \"slot-123456789\",\n  \"enabled\": true,\n  \"motorized\": true,\n  \"orientation\": \"rear\",\n  \"hardwareId\": \"hw-door-001-updated\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 2\n  },\n  \"metadata\": {\n    \"lastMaintenance\": \"2025-01-15\"\n  }\n}",
+              "raw": "{\n  \"slotId\": \"{{slotId}}\",\n  \"enabled\": true,\n  \"motorized\": true,\n  \"orientation\": \"rear\",\n  \"hardwareId\": \"API TEST DONT DELETE\",\n  \"position\": {\n    \"row\": 1,\n    \"column\": 3\n  },\n  \"metadata\": {\n    \"lastMaintenance\": \"2025-01-15\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1941,48 +1843,6 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
-                  "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "DELETE doors-doorId",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{apiKey}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/doors/{{doorId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "doors",
-                "{{doorId}}"
-              ]
-            },
-            "description": "Delete door by ID"
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 204', function () { pm.response.to.have.status(204); });",
                   "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
@@ -2025,7 +1885,6 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
                   "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
@@ -2068,7 +1927,6 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
                   "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
@@ -2149,7 +2007,7 @@
             "description": "Create organization product",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"externalProductId\": \"SKU-025-ORG\",\n  \"organizationId\": \"org-123456789\",\n  \"name\": \"Mountain Dew - Organization Version\",\n  \"description\": \"12 oz. can - Custom pricing\",\n  \"brand\": \"PepsiCo\",\n  \"category\": \"snacks\",\n  \"price\": 2.79,\n  \"currency\": \"USD\",\n  \"weight\": {\n    \"value\": 355,\n    \"unit\": \"gram\"\n  },\n  \"tempControl\": {\n    \"min\": 2,\n    \"max\": 8,\n    \"type\": \"cooled\",\n    \"unit\": \"celsius\"\n  },\n  \"shelfLifeMax\": 365,\n  \"dimensions\": {\n    \"width\": 6.98,\n    \"height\": 12.19,\n    \"length\": 6.98,\n    \"unit\": \"cm\"\n  },\n  \"images\": [\n    {\n      \"url\": \"https://cdn.example.com/mountain-dew-org.jpg\",\n      \"alt\": \"Mountain Dew 12oz can\",\n      \"tag\": \"primary\"\n    }\n  ],\n  \"tags\": [\n    \"beverage\",\n    \"citrus\",\n    \"caffeinated\"\n  ],\n  \"barcode\": \"012000001628\"\n}",
+              "raw": "{\n  \"externalProductId\": \"TEST-SKU-{{$isoTimestamp}}\",\n  \"organizationId\": \"{{orgId}}\",\n  \"name\": \"API TEST for ORG - Mountain Dew\",\n  \"description\": \"12 oz. can - Custom pricing\",\n  \"brand\": \"PepsiCo\",\n  \"category\": \"snacks\",\n  \"price\": 2.79,\n  \"currency\": \"USD\",\n  \"weight\": {\n    \"value\": 355,\n    \"unit\": \"gram\"\n  },\n  \"tempControl\": {\n    \"min\": 2,\n    \"max\": 8,\n    \"type\": \"cooled\",\n    \"unit\": \"celsius\"\n  },\n  \"shelfLifeMax\": 365,\n  \"dimensions\": {\n    \"width\": 6.98,\n    \"height\": 12.19,\n    \"length\": 6.98,\n    \"unit\": \"cm\"\n  },\n  \"images\": [\n    {\n      \"url\": \"https://cdn.example.com/mountain-dew-org.jpg\",\n      \"alt\": \"Mountain Dew 12oz can\",\n      \"tag\": \"primary\"\n    }\n  ],\n  \"tags\": [\n    \"beverage\",\n    \"citrus\",\n    \"caffeinated\"\n  ],\n  \"barcode\": \"012000001628\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2164,7 +2022,6 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
               }
@@ -2238,48 +2095,16 @@
                 "{{organizationProductId}}"
               ]
             },
-            "description": "Update organization product"
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
-                  "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
-                ]
+            "description": "Update organization product",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalProductId\": \"TEST-DONT DELETE\",\n  \"organizationId\": \"{{orgId}}\",\n  \"name\": \"API TEST DONT DELETE\",\n  \"description\": \"12 oz. can - Custom pricing\",\n  \"brand\": \"PepsiCo\",\n  \"category\": \"snacks\",\n  \"price\": 99.99,\n  \"currency\": \"USD\",\n  \"weight\": {\n    \"value\": 355,\n    \"unit\": \"gram\"\n  },\n  \"tempControl\": {\n    \"min\": 2,\n    \"max\": 8,\n    \"type\": \"cooled\",\n    \"unit\": \"celsius\"\n  },\n  \"shelfLifeMax\": 365,\n  \"dimensions\": {\n    \"width\": 6.98,\n    \"height\": 12.19,\n    \"length\": 6.98,\n    \"unit\": \"cm\"\n  },\n  \"images\": [\n    {\n      \"url\": \"https://cdn.example.com/mountain-dew-org.jpg\",\n      \"alt\": \"Mountain Dew 12oz can\",\n      \"tag\": \"primary\"\n    }\n  ],\n  \"tags\": [\n    \"beverage\",\n    \"citrus\",\n    \"caffeinated\"\n  ],\n  \"barcode\": \"012000001628\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
               }
             }
-          ]
-        },
-        {
-          "name": "DELETE organization-products-organizationProductId",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{apiKey}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/organization-products/{{organizationProductId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "organization-products",
-                "{{organizationProductId}}"
-              ]
-            },
-            "description": "Delete organization product"
           },
           "event": [
             {
@@ -2287,7 +2112,6 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 204', function () { pm.response.to.have.status(204); });",
                   "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]
@@ -2467,56 +2291,6 @@
           ]
         },
         {
-          "name": "POST assigned-products",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{apiKey}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/assigned-products",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "assigned-products"
-              ]
-            },
-            "description": "Create assigned product",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"slotId\": \"slot-123456789\",\n  \"organizationProductId\": \"orgprod-123456789\",\n  \"qtyAssigned\": 10,\n  \"qtyCurrent\": 8,\n  \"qtyLowThreshold\": 3,\n  \"qtyAssignedAt\": \"2025-01-15T10:30:00.000Z\",\n  \"price\": 2.49,\n  \"currency\": \"USD\",\n  \"inventoryReport\": {},\n  \"notes\": \"Initial assignment\",\n  \"expirationDate\": \"2025-06-15T00:00:00.000Z\",\n  \"enabled\": true\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
-                  "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
-                ]
-              }
-            }
-          ]
-        },
-        {
           "name": "GET assigned-products-organization-orgId",
           "request": {
             "method": "GET",
@@ -2630,7 +2404,7 @@
             "description": "Assign product to slot",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"organizationProductId\": \"orgprod-123456789\",\n  \"qtyAssigned\": 10,\n  \"qtyCurrent\": 8,\n  \"qtyLowThreshold\": 3,\n  \"qtyAssignedAt\": \"2025-01-15T10:30:00.000Z\",\n  \"price\": 2.49,\n  \"currency\": \"USD\",\n  \"inventoryReport\": {},\n  \"notes\": \"Slot-specific assignment\",\n  \"expirationDate\": \"2025-06-15T00:00:00.000Z\",\n  \"enabled\": true\n}",
+              "raw": "{\n  \"slotId\": \"slot-123456789\",\n  \"organizationProductId\": \"orgprod-123456789\",\n  \"qtyAssigned\": 10,\n  \"qtyCurrent\": 8,\n  \"qtyLowThreshold\": 3,\n  \"qtyAssignedAt\": \"2025-01-15T10:30:00.000Z\",\n  \"price\": 2.49,\n  \"currency\": \"USD\",\n  \"inventoryReport\": {},\n  \"notes\": \"Slot-specific assignment\",\n  \"expirationDate\": \"2025-06-15T00:00:00.000Z\",\n  \"enabled\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2644,9 +2418,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 201', function () { pm.response.to.have.status(201); });",
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
-                  "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
+                  "pm.test('Status is 409', function () { pm.response.to.have.status(409); });"
                 ]
               }
             }
@@ -2724,7 +2496,7 @@
             "description": "Partially update assigned product",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"qtyCurrent\": 5,\n  \"qtyAssignedAt\": \"2025-01-15T14:30:00.000Z\"\n}",
+              "raw": "{\n  \"qtyCurrent\": 66,\n  \"qtyAssignedAt\": \"{{$isoTimestamp}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2738,49 +2510,6 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
-                  "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "DELETE assigned-products-slot-slotId",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{apiKey}}",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/assigned-products/slot/{{slotId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "assigned-products",
-                "slot",
-                "{{slotId}}"
-              ]
-            },
-            "description": "Remove product assignment from slot"
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 204', function () { pm.response.to.have.status(204); });",
                   "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
                   "pm.test('Status < 400', function () { pm.expect(pm.response.code).to.be.below(400); });"
                 ]

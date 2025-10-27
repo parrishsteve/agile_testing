@@ -30,7 +30,7 @@ fi
 
 # Run schemathesis
 schemathesis run "$SPEC_PATH" \
-  --url "$BASE_URL" \
+  --base-url "$BASE_URL" \
   --checks all \
   --workers 4 \
   --hypothesis-deadline=500 \
